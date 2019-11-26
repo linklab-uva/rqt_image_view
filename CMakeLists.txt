@@ -4,19 +4,21 @@ project(rqt_image_view)
 
 find_package(ament_cmake REQUIRED)
 
-if(WIN32)
-  message(STATUS "rqt_image_view is not yet supported on Windows. Package will not be built.")
-  ament_package()
-  return()
-endif()
+# if(WIN32)
+#   message(STATUS "rqt_image_view is not yet supported on Windows. Package will not be built.")
+#   ament_package()
+#   return()
+# endif()
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-# Default to C++14
+#Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)
 endif()
+# set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -89,7 +91,8 @@ install(
   EXPORT ${PROJECT_NAME}
   ARCHIVE DESTINATION lib/${PROJECT_NAME}
   LIBRARY DESTINATION lib/${PROJECT_NAME}
-  RUNTIME DESTINATION bin/${PROJECT_NAME}
+ # RUNTIME DESTINATION bin/${PROJECT_NAME}
+  RUNTIME DESTINATION bin
   INCLUDES DESTINATION include)
 
 install(PROGRAMS scripts/rqt_image_view
@@ -117,5 +120,5 @@ pluginlib_export_plugin_description_file(rqt_gui "plugin.xml")
 
 ament_export_include_directories(include)
 ament_export_libraries(${PROJECT_NAME})
-
+ament_python_install_package(scripts)
 ament_package()
